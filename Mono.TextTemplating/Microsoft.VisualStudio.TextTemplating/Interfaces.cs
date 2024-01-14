@@ -24,15 +24,13 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-using System.CodeDom;
-using System.CodeDom.Compiler;
-using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 
 [assembly: TypeForwardedTo (typeof (Microsoft.VisualStudio.TextTemplating.ITextTemplatingEngine))]
 [assembly: TypeForwardedTo (typeof (Microsoft.VisualStudio.TextTemplating.ITextTemplatingEngineHost))]
 [assembly: TypeForwardedTo (typeof (Microsoft.VisualStudio.TextTemplating.ITextTemplatingSession))]
 [assembly: TypeForwardedTo (typeof (Microsoft.VisualStudio.TextTemplating.ITextTemplatingSessionHost))]
+[assembly: TypeForwardedTo (typeof (Microsoft.VisualStudio.TextTemplating.IDirectiveProcessor))]
 
 namespace Microsoft.VisualStudio.TextTemplating
 {
@@ -40,24 +38,5 @@ namespace Microsoft.VisualStudio.TextTemplating
 	{
 		void SetProcessingRunIsHostSpecific (bool hostSpecific);
 		bool RequiresProcessingRunIsHostSpecific { get; }
-	}
-
-	public interface IDirectiveProcessor
-	{
-		CompilerErrorCollection Errors { get; }
-		bool RequiresProcessingRunIsHostSpecific { get; }
-
-		void FinishProcessingRun ();
-		string GetClassCodeForProcessingRun ();
-		string[] GetImportsForProcessingRun ();
-		string GetPostInitializationCodeForProcessingRun ();
-		string GetPreInitializationCodeForProcessingRun ();
-		string[] GetReferencesForProcessingRun ();
-		CodeAttributeDeclarationCollection GetTemplateClassCustomAttributes ();  //TODO
-		void Initialize (ITextTemplatingEngineHost host);
-		bool IsDirectiveSupported (string directiveName);
-		void ProcessDirective (string directiveName, IDictionary<string, string> arguments);
-		void SetProcessingRunIsHostSpecific (bool hostSpecific);
-		void StartProcessingRun (CodeDomProvider languageProvider, string templateContents, CompilerErrorCollection errors);
 	}
 }
